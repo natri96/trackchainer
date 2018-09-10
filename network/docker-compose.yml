@@ -1,0 +1,128 @@
+#######################
+# JABIL Co.           #
+# Trackchainer        #
+# Author : Melvyn Tie #
+#######################
+
+################################################################################
+# DOCKER COMPOSE YML FILE
+################################################################################
+
+version: '2'
+
+################################################################################
+# DEFINE DOCKER SERVICES
+################################################################################
+
+networks:
+  net:
+
+services:
+  trackchainer-ca:
+    container_name: trackchainer-ca
+    image: trackchainer-ca
+    extends:
+            file: ./base/ca-base.yaml
+            service: ca-base
+    networks:
+      - net
+    ports:
+      - 7054:7054
+
+################################################################################
+# DEFINE ORDERER
+################################################################################
+
+  orderer0:
+    container_name: orderer0
+    image: orderer0
+    environment:
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/orderer/crypto/genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/orderer/crypto/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/orderer/crypto/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/orderer/crypto/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/orderer/crypto/tls/ca.crt]
+    working_dir: /orderer
+    command: orderer
+    networks:
+      - net
+    ports:
+      - 7050:7050
+
+
+################################################################################
+# DEFINE THE PEER0
+################################################################################
+
+  trackchainer-peer:
+    container_name: trackchainer-peer
+    extends:
+            file: ./base/peer-base.yaml
+            service: peer-base
+    image: trackchainer-peer
+    environment:
+      - CORE_PEER_ID=trackchainer-peer
+      - CORE_PEER_ADDRESS=trackchainer-peer:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=trackchainer-peer:7051
+      - CORE_PEER_LOCALMSPID=TrackchainerOrgMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=admin
+    ports:
+      - 7051:7051
+      - 7053:7053
+    networks:
+      - net
+    depends_on:
+      - orderer0
+
+################################################################################
+# DEFINE THE PEER1
+################################################################################
+################################################################################
+# DEFINE THE PEER2
+################################################################################
+################################################################################
+# DEFINE COUCHDB
+################################################################################
+  couchdb:
+    container_name: couchdb
+    image: hyperledger/fabric-couchdb
+    # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
+    # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=admin
+    networks:
+      - net
+    ports:
+      - 5984:5984
+
+################################################################################
+# DEFINE APP
+################################################################################
+
+#  web:
+#    container_name: web
+#    image: web
+#    environment:
+#        - PORT=3000
+#        - DOCKER_SOCKET_PATH=/host/var/run/docker.sock
+#        - DOCKER_CCENV_IMAGE=hyperledger/fabric-ccenv:x86_64-1.1.0
+#    volumes:
+#        - /var/run/:/host/var/run/
+#    networks:
+#      - net
+#    depends_on:
+#        - orderer0
+#        - trackchainer-ca
+#        - trackchainer-peer
+#        - couchdb
+#    ports:
+#      - 3000:3000

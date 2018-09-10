@@ -27,7 +27,33 @@ coverage
 bower_components
 
 # node-waf configuration
-.lock-wscript
+.lock-wscript.jshintignore
+.jshintrc
+bin
+dist
+!chaincode/
+!chaincode/src
+!chaincode/src/bcin
+trackchainer-peer
+
+# Blockchain auto-generated
+network/cli/peers/*
+network/hfc-key-store/*
+network/orderer/crypto/*
+network/org/ca/*
+network/org/tls/*
+network/peer/configtx/*
+network/peer/crypto/*
+network/peer/msp/*
+network/peer/users/*
+network/peer/peer/*
+network/cli/peers/*
+web/certs/*
+.block
+.tx
+.pem
+.crt
+.key
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
@@ -59,3 +85,18 @@ typings/
 
 # next.js build output
 .next
+
+# --- GOlang ---
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out

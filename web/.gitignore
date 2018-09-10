@@ -1,0 +1,16 @@
+kv.store
+node_modules
+.DS_Store
+.vscode
+.idea
+.env
+npm-debug.log
+.jshintignore
+.jshintrc
+bin
+dist
+!chaincode/
+!chaincode/src
+!chaincode/src/bcin
+trackchainer-peer
+channel.tx

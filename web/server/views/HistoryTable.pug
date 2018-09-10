@@ -1,0 +1,38 @@
+extends _layout
+block static
+	link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css")
+	link(rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css")
+	link(rel="stylesheet" type="text/css" href="css/dataTable.css")
+	script(src="js/historyTable.js" type="text/javascript" )
+
+block content
+	.card.mb-3
+		.card-header
+			i.fas.fa-table  #{laptop}
+		.card-body
+			.table-responsive
+				// Table
+				table(class="table table-bordered table-responsive-md table-striped text-center" id="dataTable" width="100%")
+						thead
+							tr
+								th.text-center txID
+								th.text-center value
+								th.text-center time modified
+								th.text-center status
+						tbody
+						each data in table
+							tr
+								td !{data.txId}
+								td !{data.value}
+								td !{data.time}
+								if data.isDelete
+									td Deleted
+								else
+									td Not deleted
+				
+
+block scripts
+	script(type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js")
+	script(type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js")
+
+	

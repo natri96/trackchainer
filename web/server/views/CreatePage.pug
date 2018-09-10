@@ -1,0 +1,17 @@
+extends _layout
+
+block content
+    form(id="input-form" action="/create" method="post")
+        .form-group
+            label(for="serial-number") Serial Number
+            input(type="text" class="form-control" id="inputSerialNumber" aria-describedby="serial-number-help" placeholder="Enter serial number" name="sn")
+        .form-group
+            label(for="employer-name") Employer name
+            input(type="text" class="form-control" id="inputEmployer" aria-describedby="employer-name-help" placeholder="Enter employer name" name="employer")
+            br
+            button(type="submit" class="btn btn-primary") Submit
+
+block scripts
+    script(src="vendor/dist/jquery.validate.min.js")
+    script(src="js/validateForm.js")
+    

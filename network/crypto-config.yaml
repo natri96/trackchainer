@@ -1,0 +1,28 @@
+#######################
+# JABIL Co.           #
+# Trackchainer        #
+# Author : Melvyn Tie #
+#######################
+
+################################################################################
+# "OrdererOrgs" - Definition of organizations managing orderer nodes
+################################################################################
+
+OrdererOrgs:
+  - Name: Orderer0
+    Domain: trackchainer-orderer
+    CommonName: orderer0
+    Specs:
+      - Hostname: orderer0
+        CommonName: "{{.Hostname}}"
+
+################################################################################
+# "PeerOrgs" - Definition of organizations managing peer nodes
+################################################################################
+
+PeerOrgs:
+  - Name: TrackchainerOrg
+    Domain: trackchainer-org
+    Specs:
+      - Hostname: trackchainer-peer
+        CommonName: "{{.Hostname}}"

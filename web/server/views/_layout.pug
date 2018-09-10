@@ -1,0 +1,68 @@
+doctype html
+html(lang='en')
+    head
+      title #{('Blockchain for Inventory') }#{!title ? '' : ' -' + title }
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible', content='IE=edge')
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+      meta(name='og:title' content='IBM Blockchain for Inventory')
+      script(src='/socket.io/socket.io.js')
+      link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+      link(rel='alternate', href='?applang=en', hreflang='en-us')
+      link(rel='stylesheet', type="text/css", href="./css/sb-admin.css")
+      link(href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+      link(href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+      link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+      block static
+
+    body#page-top
+      nav.navbar.navbar-expand.navbar-dark.bg-dark.static-top
+        a.navbar-brand(href='/') Trackchainer
+        
+      #wrapper
+        // Sidebar
+        ul.sidebar.navbar-nav
+          li.nav-item.active
+            a.nav-link(href='/')
+              i.fas.fa-fw.fa-tachometer-alt
+              span  Home
+          //li.nav-item.dropdown
+            a#pagesDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              i.fas.fa-fw.fa-folder
+              span  Action
+            .dropdown-menu(aria-labelledby='pagesDropdown')
+              h6.dropdown-header Invoke:
+              a.dropdown-item(href='/create') Create
+              a.dropdown-item(href='/edit') Edit
+              .dropdown-divider
+              h6.dropdown-header Query:
+              a.dropdown-item(href='/show') Show
+          li.nav-item.dropdown
+            a#pagesDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              i.fas.fa-fw.fa-chart-area
+              span  Block Explorer
+            .dropdown-menu(aria-labelledby='pagesDropdown')
+              h6.dropdown-header Search:
+              a.dropdown-item(href='/block') Block
+
+        // Overview
+        #content-wrapper
+          .container-fluid
+            //Breadcrumbs
+            ol.breadcrumb
+              li.breadcrumb-item
+                a(href="/") Home Page
+              li.breadcrumb-item.active #{title}
+            block content
+        
+      ///footer(style="position: fixed; left: 0; bottom: 0; width: 100%;")
+        form.card-footer.text-right.form-group
+          h7 Select a country/region: 
+          select.selectpicker(style= "width:5%")
+            option(value='', selected) &nbsp;
+            option(value='en') English
+
+      script(src="vendor/jquery/jquery.min.js")
+      script(src="vendor/bootstrap/js/bootstrap.bundle.min.js")
+      // Script in here
+      block scripts
