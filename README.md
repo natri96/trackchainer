@@ -32,7 +32,7 @@ sed -i '$ a export GOPATH="$HOME/go"' $HOME/.bashrc
 
 Now, clone the repository into your home directory.
 ```sh
-cd && git clone https://jblprd.visualstudio.com/DefaultCollection/Incubation/_git/trackchainer
+cd && git clone git@github.com:natri96/hyperledger-fabric-POC.git
 ```
 Goto the trackchainer folder and run the bash script.
 ```sh
