@@ -73,7 +73,7 @@
     "popper": "1.0.1",
     "popper.js": "1.14.4",
     "postcss-loader": "3.0.0",
-    "pug": "2.0.3",
+    "pug": "3.0.1",
     "react-cookie": "2.2.0",
     "react-foundation": "0.9.5",
     "react-hot-loader": "4.3.4",
